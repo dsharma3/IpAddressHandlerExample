@@ -27,6 +27,14 @@ namespace IpAddressHandlerExample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IpAddressFilter>(container =>
+            {
+                var loggerFactory = container.GetRequiredService<ILoggerFactory>();
+                var logger = loggerFactory.CreateLogger<IpAddressFilter>();
+
+                return new IpAddressFilter(
+                    Configuration["AllowedIpAddressList"], logger);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,13 +50,12 @@ namespace IpAddressHandlerExample
             app.UseRouting();
 
             app.UseAuthorization();
-
+            //app.UseMiddleware<IpAddressMiddlerWare>(Configuration["AllowedIpAddressList"]);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-            app.UseMiddleware<IpAddressMiddlerWare>(Configuration["AllowedIpAddressList"]);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using IpAddressHandlerExample.Infrastructure;
 
 namespace IpAddressHandlerExample.Controllers
 {
@@ -24,6 +25,7 @@ namespace IpAddressHandlerExample.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(IpAddressFilter))]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
