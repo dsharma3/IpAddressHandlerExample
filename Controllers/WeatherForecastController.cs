@@ -25,7 +25,6 @@ namespace IpAddressHandlerExample.Controllers
         }
 
         [HttpGet]
-        [ServiceFilter(typeof(IpAddressFilter))]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

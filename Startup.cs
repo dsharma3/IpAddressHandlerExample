@@ -55,7 +55,6 @@ namespace IpAddressHandlerExample
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }
